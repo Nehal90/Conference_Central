@@ -10,7 +10,6 @@ created/forked from conferences.py by wesc on 2014 may 24
 
 """
 
-__author__ = 'wesc+api@google.com (Wesley Chun)'
 
 import httplib
 import endpoints
@@ -52,10 +51,14 @@ class Conference(ndb.Model):
     topics          = ndb.StringProperty(repeated=True)
     city            = ndb.StringProperty()
     startDate       = ndb.DateProperty()
-    month           = ndb.IntegerProperty() # TODO: do we need for indexing like Java?
+    month           = ndb.IntegerProperty() 
     endDate         = ndb.DateProperty()
     maxAttendees    = ndb.IntegerProperty()
     seatsAvailable  = ndb.IntegerProperty()
+
+    @property
+    def sessions(self):
+        return Session.query(ancestor=self.key)
 
 class ConferenceForm(messages.Message):
     """ConferenceForm -- Conference outbound form message"""
@@ -108,3 +111,36 @@ class ConferenceQueryForms(messages.Message):
 class StringMessage(messages.Message):
     """StringMessage-- outbound (single) string message"""
     data = messages.StringField(1, required=True)
+
+class Session(ndb.Model):
+    """Session -- Session object"""
+    name            = ndb.StringProperty(required=True)
+    highlights      = ndb.StringProperty()
+    organizerUserId = ndb.StringProperty()
+    speaker         = ndb.StringProperty()
+    duration        = ndb.IntegerProperty()
+    typeOfSession   = ndb.StringProperty()
+    startDate       = ndb.DateProperty()
+    startTime       = ndb.TimeProperty() 
+    organizerDisplayName = ndb.StringProperty()
+    conferenceName   = ndb.StringProperty()
+    websafeConferenceKey = ndb.StringProperty(required=True)
+    
+class SessionForm(messages.Message):
+    """SessionForm -- Session outbound form message"""
+    name            = messages.StringField(1)
+    highlights      = messages.StringField(2)
+    organizerUserId = messages.StringField(3)
+    speaker         = messages.StringField(4)
+    duration        = messages.IntegerField(5)
+    typeOfSession   = messages.StringField(6)
+    startDate       = messages.StringField(7)
+    startTime       = messages.StringField(8)
+    websafeKey      = messages.StringField(9)
+    organizerDisplayName = messages.StringField(10)
+    conferenceName   = messages.StringField(11)
+    websafeConferenceKey = messages.StringField(12)
+
+class SessionForms(messages.Message):
+    """SessionForms -- multiple Session outbound form message"""
+    items = messages.MessageField(SessionForm, 1, repeated=True)
