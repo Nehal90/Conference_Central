@@ -31,6 +31,11 @@ from models import ConferenceForm
 from models import ConferenceForms
 from models import ConferenceQueryForm
 from models import ConferenceQueryForms
+from models import Session
+from models import SessionForm
+from models import SessionForms
+from models import SessionQueryForm
+from models import SessionQueryForms
 from models import TeeShirtSize
 from models import StringMessage
 
@@ -81,8 +86,12 @@ SESS_GET_REQUEST = endpoints.ResourceContainer(
 
 SESS_TYPE_GET_REQUEST = endpoints.ResourceContainer(
     websafeConferenceKey=messages.StringField(1),
-    typeOfSession  = messages.StringField(2)
-    
+    typeOfSession  = messages.StringField(2)   
+)
+
+SESS_GET_WSK_REQUEST = endpoints.ResourceContainer(
+    message_types.VoidMessage,
+    websafeKey=messages.StringField(1)
 )
 
 SESSION_BY_SPEAKER_GET_REQUEST = endpoints.ResourceContainer(
@@ -118,8 +127,6 @@ class ConferenceApi(remote.Service):
                 # convert Date to date string; just copy others
                 if field.name.endswith('Date'):
                     setattr(cf, field.name, str(getattr(conf, field.name)))
-                elif field.name.endswith('Time'):
-                    setattr(sf, field.name, str(getattr(sess, field.name)))
                 else:
                     setattr(cf, field.name, getattr(conf, field.name))
             elif field.name == "websafeKey":
@@ -562,6 +569,8 @@ class ConferenceApi(remote.Service):
                 # Convert date to date string and copy others
                 if field.name.endswith('Date'):
                     setattr(sf, field.name, str(getattr(sess, field.name)))
+                elif field.name.endswith('Time'):
+                    setattr(sf, field.name, str(getattr(sess, field.name)))
                 else:
                     setattr(sf, field.name, getattr(sess, field.name))
             elif field.name == "websafeKey":
@@ -605,6 +614,14 @@ class ConferenceApi(remote.Service):
          # convert dates from strings to Date objects; set month based on start_date
         if data['startDate']:
             data['startDate'] = datetime.strptime(data['startDate'][:10], "%Y-%m-%d").date()
+        
+        # convert time from strings to time objects; set hour based on start_time    
+        if data['startTime']:
+            data['startTime'] = datetime.strptime(data['startTime'][:5], "%H:%M").time()
+            data['hour'] = data['startTime'].hour    
+        else:
+            data['hour'] = 0  
+
         # generate Profile Key based on user ID and Conference
         # ID based on Profile key get Conference key from ID
 
@@ -688,5 +705,116 @@ class ConferenceApi(remote.Service):
         return SessionForms(
             items=[self._copySessionToForm(sess, getattr(sess, 'organizerDisplayName')) for sess in sessions]
         )
+
+    @endpoints.method(message_types.VoidMessage, SessionForms,
+            path='queryAllSessions',
+            http_method='GET', name='queryAllSessions')
+    def queryAllSessions(self, request):
+        """ Gets all the sessions of a specified speaker"""
+        sessions = Session.query()
+        return SessionForms(
+            items=[self._copySessionToForm(sess, getattr(sess, 'organizerDisplayName')) for sess in sessions]
+        )
+
+# - - - Wish List - - - - - - - - - - - - - - - - - - - -
+
+    def _getSessionQuery(self, request):
+        """Return formatted query from the submitted filters."""
+        q = Session.query()
+        inequality_filter, filters = self._formatFilters(request.filters)
+
+        # If exists, sort on inequality filter first
+        if not inequality_filter:
+            q = q.order(Session.name)
+        else:
+            q = q.order(ndb.GenericProperty(inequality_filter))
+            q = q.order(Session.name)
+
+        for filtr in filters:
+            if filtr["field"] in ["hour", "speaker"]:
+                filtr["value"] = int(filtr["value"])
+            formatted_query = ndb.query.FilterNode(filtr["field"], filtr["operator"], filtr["value"])
+            q = q.filter(formatted_query)
+        return q
+
+    @ndb.transactional(xg=True)
+    def _sessionToWishlist(self, request, add=True):
+        """Add or delete session from User Wishlist."""
+        retval = None
+        prof = self._getProfileFromUser() # get user Profile
+
+        # check if conf exists given websafeConfKey
+        # get conference; check that it exists
+        wsck = request.websafeKey
+        sess = ndb.Key(urlsafe=wsck).get()
+        if not sess:
+            raise endpoints.NotFoundException(
+                'No session found with key: %s' % wsck)
+
+        # Add to wishlist
+        if add:
+            # check if user already added to wishlist
+            if wsck in prof.sessionKeysToAttend:
+                raise ConflictException(
+                    "You have already added this session to wishlist.")
+
+            # add to user wishlist
+            prof.sessionKeysToAttend.append(wsck)
+            retval = True
+
+        # delete from wishlist
+        else:
+            # check if user already registered
+            if wsck in prof.sessionKeysToAttend:
+
+                # remove session from wishlist
+                prof.sessionKeysToAttend.remove(wsck)
+                retval = True
+            else:
+                retval = False
+
+        # write things back to the datastore & return
+        prof.put()
+        sess.put()
+        return BooleanMessage(data=retval)
+
+
+    @endpoints.method(message_types.VoidMessage, SessionForms,
+            path='sessions/wishlist',
+            http_method='GET', name='getSessionInWishlist')
+    def getSessionInWishlist(self, request):
+        """Get wishlist of sessions that user wants to join."""
+        prof = self._getProfileFromUser() # get user Profile
+        sess_keys = [ndb.Key(urlsafe=wsck) for wsck in prof.sessionKeysToAttend]
+        sessions = ndb.get_multi(sess_keys)
+
+        # get organizers
+        organisers = [ndb.Key(Profile, sess.organizerUserId) for sess in sessions]
+        profiles = ndb.get_multi(organisers)
+
+        # put display names in a dict for easier fetching
+        names = {}
+        for profile in profiles:
+            names[profile.key.id()] = profile.displayName
+
+        # return set of SessionForm objects per Session
+        return SessionForms(
+            items=[self._copySessionToForm(sess, getattr(sess, 'organizerDisplayName')) for sess in sessions]
+        )
+        
+    @endpoints.method(SESS_GET_WSK_REQUEST, BooleanMessage,
+            path='session/{websafeKey}',
+            http_method='POST', name='addSessionToWishlist')
+    def addSessionToWishlist(self, request):
+        """Add session to user wishlist."""
+        return self._sessionToWishlist(request)
+
+
+    @endpoints.method(SESS_GET_WSK_REQUEST, BooleanMessage,
+            path='session/{websafeKey}',
+            http_method='DELETE', name='deleteSessionFromWishlist')
+    def deleteSessionFromWishlist(self, request):
+        """Remove session from user wishlist."""
+        return self._sessionToWishlist(request, add=False)
 
 api = endpoints.api_server([ConferenceApi]) # register API

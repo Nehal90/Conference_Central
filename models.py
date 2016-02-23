@@ -26,6 +26,7 @@ class Profile(ndb.Model):
     mainEmail = ndb.StringProperty()
     teeShirtSize = ndb.StringProperty(default='NOT_SPECIFIED')
     conferenceKeysToAttend = ndb.StringProperty(repeated=True)
+    sessionKeysToAttend    = ndb.StringProperty(repeated=True)
 
 class ProfileMiniForm(messages.Message):
     """ProfileMiniForm -- update Profile form message"""
@@ -38,6 +39,7 @@ class ProfileForm(messages.Message):
     mainEmail = messages.StringField(2)
     teeShirtSize = messages.EnumField('TeeShirtSize', 3)
     conferenceKeysToAttend = messages.StringField(4, repeated=True)
+    sessionKeysToAttend = messages.StringField(5, repeated=True)
 
 class BooleanMessage(messages.Message):
     """BooleanMessage-- outbound Boolean value message"""
@@ -122,6 +124,7 @@ class Session(ndb.Model):
     typeOfSession   = ndb.StringProperty()
     startDate       = ndb.DateProperty()
     startTime       = ndb.TimeProperty() 
+    hour            = ndb.IntegerProperty() 
     organizerDisplayName = ndb.StringProperty()
     conferenceName   = ndb.StringProperty()
     websafeConferenceKey = ndb.StringProperty(required=True)
@@ -136,11 +139,22 @@ class SessionForm(messages.Message):
     typeOfSession   = messages.StringField(6)
     startDate       = messages.StringField(7)
     startTime       = messages.StringField(8)
-    websafeKey      = messages.StringField(9)
-    organizerDisplayName = messages.StringField(10)
-    conferenceName   = messages.StringField(11)
-    websafeConferenceKey = messages.StringField(12)
+    hour            = messages.IntegerField(9, variant=messages.Variant.INT32)
+    websafeKey      = messages.StringField(10)
+    organizerDisplayName = messages.StringField(11)
+    conferenceName   = messages.StringField(12)
+    websafeConferenceKey = messages.StringField(13)
 
 class SessionForms(messages.Message):
     """SessionForms -- multiple Session outbound form message"""
     items = messages.MessageField(SessionForm, 1, repeated=True)
+
+class SessionQueryForm(messages.Message):
+    """SessionQueryForm -- Session query inbound form message"""
+    field = messages.StringField(1)
+    operator = messages.StringField(2)
+    value = messages.StringField(3)
+
+class SessionQueryForms(messages.Message):
+    """ConferenceQueryForms -- multiple ConferenceQueryForm inbound form message"""
+    filters = messages.MessageField(SessionQueryForm, 1, repeated=True)
