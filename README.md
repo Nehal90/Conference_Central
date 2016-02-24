@@ -130,3 +130,16 @@ for.
 - **updateSession()**						
 	Update session w/provided fields & return w/updated info.
 
+## Design Choice
+
+Each session is created with session name and websafeConferenceKey which makes it easier to create a session without going thru a conference but still keeping the session as a child of a conference. 
+
+I have chosen to make speaker string and didn't make speaker or any other values mandatory for the session to be created since I wasn't speicified in the project description. 
+
+## Additional queries 
+
+I have made four different fields available for session queries which allows more than 2 combinations queries, to be exact I have added 16 different query combinations in the index.yaaml file. The four fields available for session queries are SPEAKER, TYPE_OF_SESSION, HOUR, and CONFERENCE_NAME.
+
+I took care of the inequlity problems related to these quaries using the same filter_format method that was taught in the course. Out of the four query fields, only HOUR is an INT field, which has been taken care of in the code.
+
+
