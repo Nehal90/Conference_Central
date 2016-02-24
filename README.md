@@ -41,7 +41,6 @@ In this project I learn how to develop a cloud-based API server to support a pro
 [5]: https://localhost:8080/
 [6]: https://developers.google.com/appengine/docs/python/endpoints/endpoints_tool
 
-----------
 
 ## Project Name
 - [conference-central-1222][7]
