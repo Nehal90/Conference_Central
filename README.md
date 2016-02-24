@@ -1,25 +1,20 @@
 # Conference_Central
-----------
 In this project I learn how to develop a cloud-based API server to support a provided conference organization application that exists on the web as well as a native Android application. The API supports the following functionality found within the app: user authentication, user profiles, conference information and various manners in which to query the data.
 
 
 ## Products
-----------
 - [App Engine][1]
 
 
 ## Language
-----------
 - [Python][2]
 
 
 ## APIs
-----------
 - [Google Cloud Endpoints][3]
 
 
 ## Setup Instructions
-----------
 1. Update the value of `application` in `app.yaml` to the app ID you
    have registered in the App Engine admin console and would like to use to host
    your instance of this sample.
@@ -42,14 +37,12 @@ In this project I learn how to develop a cloud-based API server to support a pro
 [6]: https://developers.google.com/appengine/docs/python/endpoints/endpoints_tool
 
 ## Project Name
-----------
 - [conference-central-1222][7]
 
 [7]: https://conference-central-1222.appspot.com/#/  
 
 
 ## Explore Project APIs
-----------
 
 - [conference-central-1222.appspot.com/_ah/api/explorer][8]
 
@@ -57,7 +50,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 
 ## Available API
-----------
+
 
 - **addSessionToWishlist()**|
 Add session to user wishlist (by websafeKey)
@@ -137,4 +130,3 @@ for.
 - **updateSession()**						
 	Update session w/provided fields & return w/updated info.
 
-----------
