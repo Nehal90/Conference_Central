@@ -98,6 +98,9 @@ for.
 - **getSession()**						
 	Return requested session (by websafeKey).
 
+- **getSessionsCreated()**				
+	Get list of sessions created by current user.
+
 - **getSessionInWishlist()**				
 	Get wishlist of sessions that user wants to join.
 
