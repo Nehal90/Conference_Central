@@ -46,6 +46,7 @@ from settings import WEB_CLIENT_ID
 EMAIL_SCOPE = endpoints.EMAIL_SCOPE
 API_EXPLORER_CLIENT_ID = endpoints.API_EXPLORER_CLIENT_ID
 MEMCACHE_ANNOUNCEMENTS_KEY = "RECENT_ANNOUNCEMENTS"
+MEMCACHE_FEATURED_SPEAKER_KEY = "TODAY'S_FEATURED_SPEAKER"
 ANNOUNCEMENT_TPL = ('Last chance to attend! The following conferences '
                     'are nearly sold out: %s')
 
@@ -192,14 +193,15 @@ class ConferenceApi(remote.Service):
         c_key = ndb.Key(Conference, c_id, parent=p_key)
         data['key'] = c_key
         data['organizerUserId'] = request.organizerUserId = user_id
-        # create Conference, send email to organizer confirming
-        # creation of Conference & return (modified) ConferenceForm
         Conference(**data).put()
+
+        # create Conference, send email to organizer confirming
         taskqueue.add(params={'email': user.email(),
             'conferenceInfo': repr(request)},
             url='/tasks/send_confirmation_email'
         )
 
+        # creation of Conference & return (modified) ConferenceForm
         return request
 
 
@@ -649,6 +651,13 @@ class ConferenceApi(remote.Service):
         print data 
         Session(**data).put()
 
+        # task to announce featured speaker
+        taskqueue.add(
+                params={'websafeConferenceKey': request.websafeConferenceKey},
+                url='/tasks/set_featured_speaker'
+                )
+
+        # creation of Session & return (modified) SessionForm
         return request
 
 
@@ -935,5 +944,48 @@ class ConferenceApi(remote.Service):
     def deleteSessionFromWishlist(self, request):
         """Remove session from user wishlist."""
         return self._sessionToWishlist(request, add=False)
+
+# - - - - - - - - - FEATURED SPEAKER ANNOUNCEMENT - - - - - - - - - - - - - - - - - 
+
+    @staticmethod
+    def _cacheFeaturedSpeaker(websafeConferenceKey):
+        """Assign Featured Speaker to memcache"""
+        # find the conference associated with the key
+        c_key = ndb.Key(urlsafe=websafeConferenceKey)
+        if not c_key:
+            raise endpoints.BadRequestException("Session \
+                  'websafeConferenceKey' field required")
+
+        # query all sessions associated with the conference
+        sessions = Session.query(ancestor=c_key)
+
+        featured_speaker_list = {}
+        # if there is already a speaker in the list, increase count
+        # otherwise add a new entry with a count of one
+        for session in sessions:
+            if session.speaker in featured_speaker_list:
+                featured_speaker_list[session.speaker] += 1
+            else:
+                featured_speaker_list[session.speaker] = 1
+
+        # return the key value with the maximum count as featured speaker
+        # if count is the same it will return a random one
+        featured_speaker = max(featured_speaker_list,
+                               key=featured_speaker_list.get)
+        if not featured_speaker:
+            featured_speaker = "None"
+        # save featured speaker value in memcache
+        memcache.add(key=MEMCACHE_FEATURED_KEY, value=featured_speaker)
+        return featured_speaker
+
+    @endpoints.method(message_types.VoidMessage, StringMessage,
+                      path='conference/featured_speaker',
+                      http_method='GET', name='getFeaturedSpeaker')
+    def getFeaturedSpeaker(self, request):
+        """Get the featured speaker from memcache"""
+        featured_speaker = memcache.get(MEMCACHE_FEATURED_SPEAKER_KEY)
+        if not featured_speaker:
+            featured_speaker = ""
+        return StringMessage(data=featured_speaker)
 
 api = endpoints.api_server([ConferenceApi]) # register API
