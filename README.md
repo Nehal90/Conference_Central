@@ -40,86 +40,86 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ## Explore Project APIs
 
-[conference-central-1222.appspot.com/_ah/api/explorer][8]
+- [conference-central-1222.appspot.com/_ah/api/explorer][8]
 
 [8]: https://conference-central-1222.appspot.com/_ah/api/explorer
 
 ## Available API
 
-- addSessionToWishlist				
+- addSessionToWishlist()				
 	Add session to user wishlist (by websafeKey).
 
-- createConference					
+- createConference()					
 	Create new conference (by name).
 
-- createSession						
+- createSession()						
 Create new session (by name and websafeConferenceKey).
 
-- deleteSessionFromWishlist			
+- deleteSessionFromWishlist()			
 	Remove session from user wishlist (by websafeKey).
 
-- getAllSessions					
+- getAllSessions()					
 	Get all the sessions
 
-- getAnnouncement					
+- getAnnouncement()					
 	Return Announcement from memcache.
 
-- getConference						
+- getConference()						
 	Return requested conference (by websafeConferenceKey).
 
-- getConferenceSessions				
+- getConferenceSessions()				
 	Return conferences created by user (by websafeConferenceKey).
 
-- getConferenceSessionsBySpeaker	
+- getConferenceSessionsBySpeaker()	
 	Gets all the sessions of a specified speaker (by websafeConferenceKey and speaker).
 
-- getConferenceSessionsByType		
+- getConferenceSessionsByType()		
 	Get sessions of a conference by type (by websafeConferenceKey and typeOfSession).
 
-- getConferencesCreated				
+- getConferencesCreated()				
 	Return conferences created by user.
 
-- getConferencesToAttend			
+- getConferencesToAttend()			
 	Get list of conferences that user has registered 
 for.
 
-- getFeaturedSpeaker				
+- getFeaturedSpeaker()				
 	Get the featured speaker from memcache
 
-- getProfile						
+- getProfile()						
 	Return user profile.
 
-- getSession						
+- getSession()						
 	Return requested session (by websafeKey).
 
-- getSessionInWishlist				
+- getSessionInWishlist()				
 	Get wishlist of sessions that user wants to join.
 
-- queryConferences					
+- queryConferences()					
 	Query for conferences. Following query fields are available:
 	CITY
 	TOPIC
 	MONTH
 	MAX_ATTENDEES
 
-- querySessions						
+- querySessions()						
 	Query for sessions. Following query fields are available:
 	SPEAKER
 	TYPE_OF_SESSION
 	HOUR
 	CONFERENCE_NAME
 
-- registerForConference				
+- registerForConference()				
 	Register user for selected conference.
 
-- saveProfile						
+- saveProfile()						
 	Update & return user profile.
 
-- unregisterFromConference			
+- unregisterFromConference()			
 	Unregister user for selected conference.
 
-- updateConference					
+- updateConference()					
 	Update conference w/provided fields & return w/updated info.
 
-- updateSession						
+- updateSession()						
 	Update session w/provided fields & return w/updated info.
