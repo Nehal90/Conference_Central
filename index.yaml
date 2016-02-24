@@ -116,3 +116,88 @@ indexes:
   properties:
   - name: topics
   - name: name
+
+- kind: Session
+  properties:
+  - name: conferenceName
+  - name: hour
+  - name: name
+
+- kind: Session
+  properties:
+  - name: conferenceName
+  - name: speaker
+  - name: hour
+  - name: name
+
+- kind: Session
+  properties:
+  - name: conferenceName
+  - name: speaker
+  - name: name
+
+- kind: Session
+  properties:
+  - name: conferenceName
+  - name: typeOfSession
+  - name: hour
+  - name: name
+
+- kind: Session
+  properties:
+  - name: conferenceName
+  - name: typeOfSession
+  - name: name
+
+- kind: Session
+  properties:
+  - name: conferenceName
+  - name: typeOfSession
+  - name: speaker
+  - name: name
+
+- kind: Session
+  properties:
+  - name: hour
+  - name: name
+
+- kind: Session
+  properties:
+  - name: speaker
+  - name: hour
+  - name: name
+
+- kind: Session
+  properties:
+  - name: speaker
+  - name: name
+
+- kind: Session
+  properties:
+  - name: typeOfSession
+  - name: conferenceName
+  - name: name
+
+- kind: Session
+  properties:
+  - name: typeOfSession
+  - name: hour
+  - name: name
+
+- kind: Session
+  properties:
+  - name: typeOfSession
+  - name: name
+
+- kind: Session
+  properties:
+  - name: typeOfSession
+  - name: speaker
+  - name: hour
+  - name: name
+
+- kind: Session
+  properties:
+  - name: typeOfSession
+  - name: speaker
+  - name: name
