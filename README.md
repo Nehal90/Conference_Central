@@ -1,14 +1,22 @@
 # Conference_Central
 In this project I learn how to develop a cloud-based API server to support a provided conference organization application that exists on the web as well as a native Android application. The API supports the following functionality found within the app: user authentication, user profiles, conference information and various manners in which to query the data.
 
+----------
+
 ## Products
 - [App Engine][1]
+
+----------
 
 ## Language
 - [Python][2]
 
+----------
+
 ## APIs
 - [Google Cloud Endpoints][3]
+
+----------
 
 ## Setup Instructions
 1. Update the value of `application` in `app.yaml` to the app ID you
@@ -24,6 +32,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 1. (Optional) Generate your client library(ies) with [the endpoints tool][6].
 1. Deploy your application using `appcfg.py update .` 
 
+----------
 
 [1]: https://developers.google.com/appengine
 [2]: http://python.org
@@ -32,11 +41,16 @@ In this project I learn how to develop a cloud-based API server to support a pro
 [5]: https://localhost:8080/
 [6]: https://developers.google.com/appengine/docs/python/endpoints/endpoints_tool
 
+----------
 
 ## Project Name
 - [conference-central-1222][7]
 
 [7]: https://conference-central-1222.appspot.com/#/  
+
+
+----------
+
 
 ## Explore Project APIs
 
@@ -44,82 +58,86 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 [8]: https://conference-central-1222.appspot.com/_ah/api/explorer
 
+----------
+
 ## Available API
 
-- addSessionToWishlist()				
-	Add session to user wishlist (by websafeKey).
+- **addSessionToWishlist()**|
+Add session to user wishlist (by websafeKey)
 
-- createConference()					
-	Create new conference (by name).
+- **createConference()**	|
+Create new conference (by name) 
 
-- createSession()						
+- **createSession()**						
 Create new session (by name and websafeConferenceKey).
 
-- deleteSessionFromWishlist()			
+- **deleteSessionFromWishlist()**			
 	Remove session from user wishlist (by websafeKey).
 
-- getAllSessions()					
+- **getAllSessions()**					
 	Get all the sessions
 
-- getAnnouncement()					
+- **getAnnouncement()**					
 	Return Announcement from memcache.
 
-- getConference()						
+- **getConference()**						
 	Return requested conference (by websafeConferenceKey).
 
-- getConferenceSessions()				
+- **getConferenceSessions()**				
 	Return conferences created by user (by websafeConferenceKey).
 
-- getConferenceSessionsBySpeaker()	
+- **getConferenceSessionsBySpeaker()**	
 	Gets all the sessions of a specified speaker (by websafeConferenceKey and speaker).
 
-- getConferenceSessionsByType()		
+- **getConferenceSessionsByType()**		
 	Get sessions of a conference by type (by websafeConferenceKey and typeOfSession).
 
-- getConferencesCreated()				
+- **getConferencesCreated()**				
 	Return conferences created by user.
 
-- getConferencesToAttend()			
+- **getConferencesToAttend()**			
 	Get list of conferences that user has registered 
 for.
 
-- getFeaturedSpeaker()				
+- **getFeaturedSpeaker()**				
 	Get the featured speaker from memcache
 
-- getProfile()						
+- **getProfile()**						
 	Return user profile.
 
-- getSession()						
+- **getSession()**						
 	Return requested session (by websafeKey).
 
-- getSessionInWishlist()				
+- **getSessionInWishlist()**				
 	Get wishlist of sessions that user wants to join.
 
-- queryConferences()					
+- **queryConferences()**					
 	Query for conferences. Following query fields are available:
 	CITY
 	TOPIC
 	MONTH
 	MAX_ATTENDEES
 
-- querySessions()						
+- **querySessions()**						
 	Query for sessions. Following query fields are available:
 	SPEAKER
 	TYPE_OF_SESSION
 	HOUR
 	CONFERENCE_NAME
 
-- registerForConference()				
+- **registerForConference()**				
 	Register user for selected conference.
 
-- saveProfile()						
+- **saveProfile()**						
 	Update & return user profile.
 
-- unregisterFromConference()			
+- **unregisterFromConference()**			
 	Unregister user for selected conference.
 
-- updateConference()					
+- **updateConference()**					
 	Update conference w/provided fields & return w/updated info.
 
-- updateSession()						
+- **updateSession()**						
 	Update session w/provided fields & return w/updated info.
+
+----------
