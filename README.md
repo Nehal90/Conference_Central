@@ -49,7 +49,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 [8]: https://conference-central-1222.appspot.com/_ah/api/explorer
 
 
-## Available API
+## Available Endpoint APIs
 
 
 - **addSessionToWishlist()**|
