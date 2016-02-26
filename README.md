@@ -62,281 +62,414 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 - **addSessionToWishlist()**
 
-Path: 'session/{websafeKey}'
+	Path: 'session/{websafeKey}'
 
-Method: POST
+	Method: POST
 
-Parameters: websafeKey (required)
+	Parameters: websafeKey (required)
 
-Returns: confirmation of session added to user wishlist.
+	Returns: confirmation of session added to user wishlist.
 
-Description: Adds the sessions users wishlist.
+	Description: Adds the sessions users wishlist.
 
 ---
 
 - **createConference()**
 
-Path: 'conference'
-Method: POST
-Parameters: name (required)
+	Path: 'conference'
+
+	Method: POST
+	
+	Parameters: 
+			name (required)
+			
 			topics (required)
+			
 			description (optional)
+			
 			organizerUserId (optional)
+			
 			organizerDisplayName (optional)
+			
 			city (optional)
+			
 			startDate (optional)
+			
 			endDate (optional)
+			
 			month (optional)
+			
 			maxAttendess (optional)
+			
 			seatsAvailable (optional)
-Returns: a confirmation that the new session is created.
-Description: Create a new session.
+	
+	Returns: a confirmation that the new session is created.
+	
+	Description: Create a new session.
 
 ---
 
 - **createSession()**						
 
-Path: 'session'
-Method: POST
-Parameters: name (required)
+	Path: 'session'
+	
+	Method: POST
+	
+	Parameters: 
+			name (required)
+			
 			websafeConferenceKey (required)
+			
 			duration (optional)
+			
 			organizerUserId (optional)
+			
 			organizerDisplayName (optional)
+			
 			highlights (optional)
+			
 			startDate (optional)
+			
 			startTime (optional)
+			
 			hour (optional)
+			
 			speaker (optional)
+			
 			typeOfSession (optional)
-Returns: a confirmation that the new conference is created.
-Description: Create a new conference.
+	
+	Returns: a confirmation that the new conference is created.
+
+	Description: Create a new conference.
 
 ---
 
 - **deleteSessionFromWishlist()**	
 
-Path: 'session/{websafeKey}'
-Method: POST
-Parameters: websafeKey (required)
-Returns: confirmation of session deleted from user wishlist.
-Description: Remove session from user wishlist.
+	Path: 'session/{websafeKey}'
+	
+	Method: POST
+	
+	Parameters: websafeKey (required)
+	
+	Returns: confirmation of session deleted from user wishlist.
+	
+	Description: Remove session from user wishlist.
 
 ---
 
 - **getAllSessions()**	
 
-Path: 'session/all'
-Method: GET
-Parameters: NONE
-Returns: a list of all sessions from all conference.
-Description: Get all the sessions.
+	Path: 'session/all'
+	
+	Method: GET
+	
+	Parameters: NONE
+	
+	Returns: a list of all sessions from all conference.
+	
+	Description: Get all the sessions.
 
 ---
 
 - **getAnnouncement()**		
 
-Path: 'conference/announcement/get'
-Method: GET
-Parameters: NONE
-Returns: annoucement.
-Description: Return Announcement from memcache.
+	Path: 'conference/announcement/get'
+	
+	Method: GET
+	
+	Parameters: NONE
+	
+	Returns: annoucement.
+	
+	Description: Return Announcement from memcache.
 
 ---
 
 - **getConference()**
 
-Path: 'conference/{websafeConferenceKey}'
-Method: GET
-Parameters: websafeConferenceKey (required)
-Returns: conference.
-Description: Return requested conference.
+	Path: 'conference/{websafeConferenceKey}'
+	
+	Method: GET
+	
+	Parameters: websafeConferenceKey (required)
+	
+	Returns: conference.
+	
+	Description: Return requested conference.
 
 ---
 
 - **getConferenceSessions()**		
 
-Path: 'conferece/{websafeConferenceKey}/sessions'
-Method: GET
-Parameters: websafeConferenceKey (required)
-Returns: a list of sessions within a conference.
-Description: Return all sessions within a conference.
+	Path: 'conferece/{websafeConferenceKey}/sessions'
+	
+	Method: GET
+	
+	Parameters: websafeConferenceKey (required)
+	
+	Returns: a list of sessions within a conference.
+	
+	Description: Return all sessions within a conference.
 
 ---
 
 - **getConferenceSessionsBySpeaker()**	
 
-Path: 'conference/sessions/bySpeaker'
-Method: GET
-Parameters: websafeConferenceKey (required)
-			speaker (required)
-Returns: a list of sessions within a conference given by specified speaker.
-Description: Gets all the sessions of a specified speaker.
+	Path: 'conference/sessions/bySpeaker'
+	
+	Method: GET
+	
+	Parameters: 
+				websafeConferenceKey (required)
+				
+				speaker (required)
+	
+	Returns: a list of sessions within a conference given by specified speaker.
+	
+	Description: Gets all the sessions of a specified speaker.
 
 ---
 
 - **getConferenceSessionsByType()**		
 
-Path: 'conference/sessions/byType'
-Method: GET
-Parameters: websafeConferenceKey (required)
-			typeOfSession (required)
-Returns: a list of certain type of sessions within a conference.
-Description: Get sessions of a conference by type.
+	Path: 'conference/sessions/byType'
+	
+	Method: GET
+	
+	Parameters: 
+				websafeConferenceKey (required)
+	
+				typeOfSession (required)
+	
+	Returns: a list of certain type of sessions within a conference.
+	
+	Description: Get sessions of a conference by type.
 
 ---
 
 - **getConferencesCreated()**				
 
-Path: 'getConferencesCreated'
-Method: GET
-Parameters: None
-Returns: a list of conferences.
-Description: Return conferences created by logged in user.
+	Path: 'getConferencesCreated'
+
+	Method: GET
+
+	Parameters: None
+
+	Returns: a list of conferences.
+
+	Description: Return conferences created by logged in user.
 
 ---
 
 - **getConferencesToAttend()**			
 
-Path: 'conference/created_by_user'
-Method: GET
-Parameters: None
-Returns: a list of conferences logged in user registered for.
-Description: Get list of conferences that user has registered for to attend.
+	Path: 'conference/created_by_user'
+
+	Method: GET
+
+	Parameters: None
+
+	Returns: a list of conferences logged in user registered for.
+
+	Description: Get list of conferences that user has registered for to attend.
 
 ---
 
 - **getFeaturedSpeaker()**				
 
-Path: 'conference/featured_speaker'
-Method: GET
-Parameters: None
-Returns: featured speaker announcement.
-Description: Get the featured speaker from memcache.
+	Path: 'conference/featured_speaker'
+
+	Method: GET
+
+	Parameters: None
+
+	Returns: featured speaker announcement.
+
+	Description: Get the featured speaker from memcache.
 
 ---
 
 - **getProfile()**			
 
-Path: 'profile'
-Method: GET
-Parameters: None
-Returns: user profile
-Description: Get user profile.
+	Path: 'profile'
+
+	Method: GET
+
+	Parameters: None
+
+	Returns: user profile
+
+	Description: Get user profile.
 
 ---
 
 - **getSession()**						
 
-Path: 'session/{websafeKey}'
-Method: GET
-Parameters: websafeKey (required)
-Returns: session.
-Description: Get requested session.
+	Path: 'session/{websafeKey}'
+
+	Method: GET
+
+	Parameters: websafeKey (required)
+
+	Returns: session.
+
+	Description: Get requested session.
 
 ---
 
 - **getSessionsCreated()**				
 
-Path: 'getSessionsCreated'
-Method: GET
-Parameters: None
-Returns: a list of sessions.
-Description: Get list of sessions created by current user.
+	Path: 'getSessionsCreated'
+
+	Method: GET
+
+	Parameters: None
+
+	Returns: a list of sessions.
+
+	Description: Get list of sessions created by current user.
 
 ---
 
 - **getSessionInWishlist()**		
 
-Path: 'sessions/wishlist'
-Method: GET
-Parameters: None
-Returns: a list of sessions.
-Description: Get wishlist of sessions that user wants to join.
+	Path: 'sessions/wishlist'
+
+	Method: GET
+
+	Parameters: None
+
+	Returns: a list of sessions.
+
+	Description: Get wishlist of sessions that user wants to join.
 
 ---
 
 - **queryConferences()**
 
-Path: 'queryConferences'
-Method: POST
-Parameters: filters (required)
-			field (required)
-			operator (required)
-			value (required)
-Returns: a list of conference satisfying the query condition.
-Description: Query for conferences by following fields.
-				CITY
-				TOPIC
-				MONTH
-				MAX_ATTENDEES
+	Path: 'queryConferences'
+
+	Method: POST
+
+	Parameters: 
+				filters (required)
+				
+				field (required)
+				
+				operator (required)
+				
+				value (required)
+	
+	Returns: a list of conference satisfying the query condition.
+	
+	Description: Query for conferences by following fields.
+					
+					CITY
+					
+					TOPIC
+					
+					MONTH
+					
+					MAX_ATTENDEES
 
 ---
 
 - **querySessions()**						
 
-Path: 'querySessions'
-Method: POST
-Parameters: filters (required)
-			field (required)
-			operator (required)
-			value (required)
-Returns: a list of conference satisfying the query condition.
-Description: Query for sessions by following fields.
-				SPEAKER
-				TYPE_OF_SESSION
-				HOUR
-				CONFERENCE_NAME
+	Path: 'querySessions'
+
+	Method: POST
+
+	Parameters: 
+				filters (required)
+				
+				field (required)
+				
+				operator (required)
+				
+				value (required)
+	
+	Returns: a list of conference satisfying the query condition.
+	
+	Description: Query for sessions by following fields.
+					SPEAKER
+		
+					TYPE_OF_SESSION
+		
+					HOUR
+		
+					CONFERENCE_NAME
 
 ---
 
 - **registerForConference()**
 
-Path: 'conference/{websafeConferenceKey}'
-Method: POST
-Parameters: websafeConferenceKey (required)
-Returns: confirmation if user is registered for the conference.
-Description: Register user for selected conference.
+	Path: 'conference/{websafeConferenceKey}'
+
+	Method: POST
+
+	Parameters: websafeConferenceKey (required)
+
+	Returns: confirmation if user is registered for the conference.
+
+	Description: Register user for selected conference.
 
 ---
 
 - **saveProfile()**			
 
-Path: 'profile'
-Method: POST
-Parameters: None
-Returns: saved user profile
-Description: Update & return user profile.
+	Path: 'profile'
+
+	Method: POST
+
+	Parameters: None
+
+	Returns: saved user profile
+
+	Description: Update & return user profile.
 
 ---
 
 - **unregisterFromConference()**
 
-Path: 'conference/{websafeConferenceKey}'
-Method: POST
-Parameters: websafeConferenceKey (required)
-Returns: confirmation if user is unregistered for the conference.
-Description: Unregister user for selected conference.
+	Path: 'conference/{websafeConferenceKey}'
+
+	Method: POST
+
+	Parameters: websafeConferenceKey (required)
+
+	Returns: confirmation if user is unregistered for the conference.
+
+	Description: Unregister user for selected conference.
 
 ---
 
 - **updateConference()**	
 
-Path: 'conference/{websafeConferenceKey}'
-Method: POST
-Parameters: websafeKey (required)
-Returns: updated conference.
-Description: Update conference w/provided fields & return w/updated info.
+	Path: 'conference/{websafeConferenceKey}'
+
+	Method: POST
+
+	Parameters: websafeKey (required)
+
+	Returns: updated conference.
+
+	Description: Update conference w/provided fields & return w/updated info.
 
 ---
 
 - **updateSession()**
 
-Path: 'session/{websafeKey}'
-Method: POST
-Parameters: websafeKey (required)
-Returns: updated session.
-Description: Update session w/provided fields & return w/updated info.
+	Path: 'session/{websafeKey}'
+
+	Method: POST
+
+	Parameters: websafeKey (required)
+
+	Returns: updated session.
+
+	Description: Update session w/provided fields & return w/updated info.
 
 
 ## Design Choice
