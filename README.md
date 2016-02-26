@@ -150,7 +150,8 @@ In this project I learn how to develop a cloud-based API server to support a pro
 	
 	Method: POST
 	
-	Parameters: websafeKey (required)
+	Parameters: 
+			websafeKey (required)
 	
 	Returns: confirmation of session deleted from user wishlist.
 	
@@ -192,7 +193,8 @@ In this project I learn how to develop a cloud-based API server to support a pro
 	
 	Method: GET
 	
-	Parameters: websafeConferenceKey (required)
+	Parameters: 
+			websafeConferenceKey (required)
 	
 	Returns: conference.
 	
@@ -206,7 +208,8 @@ In this project I learn how to develop a cloud-based API server to support a pro
 	
 	Method: GET
 	
-	Parameters: websafeConferenceKey (required)
+	Parameters: 
+			websafeConferenceKey (required)
 	
 	Returns: a list of sessions within a conference.
 	
@@ -221,9 +224,9 @@ In this project I learn how to develop a cloud-based API server to support a pro
 	Method: GET
 	
 	Parameters: 
-				websafeConferenceKey (required)
+			websafeConferenceKey (required)
 				
-				speaker (required)
+			speaker (required)
 	
 	Returns: a list of sessions within a conference given by specified speaker.
 	
@@ -238,9 +241,9 @@ In this project I learn how to develop a cloud-based API server to support a pro
 	Method: GET
 	
 	Parameters: 
-				websafeConferenceKey (required)
+			websafeConferenceKey (required)
 	
-				typeOfSession (required)
+			typeOfSession (required)
 	
 	Returns: a list of certain type of sessions within a conference.
 	
@@ -310,7 +313,8 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 	Method: GET
 
-	Parameters: websafeKey (required)
+	Parameters: 
+			websafeKey (required)
 
 	Returns: session.
 
@@ -409,7 +413,8 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 	Method: POST
 
-	Parameters: websafeConferenceKey (required)
+	Parameters: 
+			websafeConferenceKey (required)
 
 	Returns: confirmation if user is registered for the conference.
 
@@ -437,7 +442,8 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 	Method: POST
 
-	Parameters: websafeConferenceKey (required)
+	Parameters: 
+			websafeConferenceKey (required)
 
 	Returns: confirmation if user is unregistered for the conference.
 
@@ -451,7 +457,8 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 	Method: POST
 
-	Parameters: websafeKey (required)
+	Parameters: 
+			websafeKey (required)
 
 	Returns: updated conference.
 
@@ -465,7 +472,8 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 	Method: POST
 
-	Parameters: websafeKey (required)
+	Parameters: 
+			websafeKey (required)
 
 	Returns: updated session.
 
