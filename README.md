@@ -72,7 +72,7 @@ Description: Adds the sessions users wishlist.
 
 - **createConference()**
 
-Path: 'conference'
+Path: 'conference'.
 Method: POST
 Parameters: name (required)
 			topics (required)
