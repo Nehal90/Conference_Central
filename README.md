@@ -63,16 +63,20 @@ In this project I learn how to develop a cloud-based API server to support a pro
 - **addSessionToWishlist()**
 
 Path: 'session/{websafeKey}'
+
 Method: POST
+
 Parameters: websafeKey (required)
+
 Returns: confirmation of session added to user wishlist.
+
 Description: Adds the sessions users wishlist.
 
 ---
 
 - **createConference()**
 
-Path: 'conference'.
+Path: 'conference'
 Method: POST
 Parameters: name (required)
 			topics (required)
