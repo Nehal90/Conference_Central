@@ -67,6 +67,7 @@ Method: POST
 Parameters: websafeKey (required)
 Returns: confirmation of session added to user wishlist.
 Description: Adds the sessions users wishlist.
+
 ---
 
 - **createConference()**
@@ -86,6 +87,7 @@ Parameters: name (required)
 			seatsAvailable (optional)
 Returns: a confirmation that the new session is created.
 Description: Create a new session.
+
 ---
 
 - **createSession()**						
@@ -105,6 +107,7 @@ Parameters: name (required)
 			typeOfSession (optional)
 Returns: a confirmation that the new conference is created.
 Description: Create a new conference.
+
 ---
 
 - **deleteSessionFromWishlist()**	
@@ -114,6 +117,7 @@ Method: POST
 Parameters: websafeKey (required)
 Returns: confirmation of session deleted from user wishlist.
 Description: Remove session from user wishlist.
+
 ---
 
 - **getAllSessions()**	
@@ -123,6 +127,7 @@ Method: GET
 Parameters: NONE
 Returns: a list of all sessions from all conference.
 Description: Get all the sessions.
+
 ---
 
 - **getAnnouncement()**		
@@ -132,6 +137,7 @@ Method: GET
 Parameters: NONE
 Returns: annoucement.
 Description: Return Announcement from memcache.
+
 ---
 
 - **getConference()**
@@ -141,6 +147,7 @@ Method: GET
 Parameters: websafeConferenceKey (required)
 Returns: conference.
 Description: Return requested conference.
+
 ---
 
 - **getConferenceSessions()**		
@@ -150,6 +157,7 @@ Method: GET
 Parameters: websafeConferenceKey (required)
 Returns: a list of sessions within a conference.
 Description: Return all sessions within a conference.
+
 ---
 
 - **getConferenceSessionsBySpeaker()**	
@@ -160,6 +168,7 @@ Parameters: websafeConferenceKey (required)
 			speaker (required)
 Returns: a list of sessions within a conference given by specified speaker.
 Description: Gets all the sessions of a specified speaker.
+
 ---
 
 - **getConferenceSessionsByType()**		
@@ -170,6 +179,7 @@ Parameters: websafeConferenceKey (required)
 			typeOfSession (required)
 Returns: a list of certain type of sessions within a conference.
 Description: Get sessions of a conference by type.
+
 ---
 
 - **getConferencesCreated()**				
@@ -179,6 +189,7 @@ Method: GET
 Parameters: None
 Returns: a list of conferences.
 Description: Return conferences created by logged in user.
+
 ---
 
 - **getConferencesToAttend()**			
@@ -188,6 +199,7 @@ Method: GET
 Parameters: None
 Returns: a list of conferences logged in user registered for.
 Description: Get list of conferences that user has registered for to attend.
+
 ---
 
 - **getFeaturedSpeaker()**				
@@ -196,7 +208,8 @@ Path: 'conference/featured_speaker'
 Method: GET
 Parameters: None
 Returns: featured speaker announcement.
-Description: Get the featured speaker from memcache
+Description: Get the featured speaker from memcache.
+
 ---
 
 - **getProfile()**			
@@ -206,6 +219,7 @@ Method: GET
 Parameters: None
 Returns: user profile
 Description: Get user profile.
+
 ---
 
 - **getSession()**						
@@ -215,6 +229,7 @@ Method: GET
 Parameters: websafeKey (required)
 Returns: session.
 Description: Get requested session.
+
 ---
 
 - **getSessionsCreated()**				
@@ -224,6 +239,7 @@ Method: GET
 Parameters: None
 Returns: a list of sessions.
 Description: Get list of sessions created by current user.
+
 ---
 
 - **getSessionInWishlist()**		
@@ -233,6 +249,7 @@ Method: GET
 Parameters: None
 Returns: a list of sessions.
 Description: Get wishlist of sessions that user wants to join.
+
 ---
 
 - **queryConferences()**
@@ -249,6 +266,7 @@ Description: Query for conferences by following fields.
 				TOPIC
 				MONTH
 				MAX_ATTENDEES
+
 ---
 
 - **querySessions()**						
@@ -265,6 +283,7 @@ Description: Query for sessions by following fields.
 				TYPE_OF_SESSION
 				HOUR
 				CONFERENCE_NAME
+
 ---
 
 - **registerForConference()**
@@ -274,6 +293,7 @@ Method: POST
 Parameters: websafeConferenceKey (required)
 Returns: confirmation if user is registered for the conference.
 Description: Register user for selected conference.
+
 ---
 
 - **saveProfile()**			
@@ -283,6 +303,7 @@ Method: POST
 Parameters: None
 Returns: saved user profile
 Description: Update & return user profile.
+
 ---
 
 - **unregisterFromConference()**
@@ -292,6 +313,7 @@ Method: POST
 Parameters: websafeConferenceKey (required)
 Returns: confirmation if user is unregistered for the conference.
 Description: Unregister user for selected conference.
+
 ---
 
 - **updateConference()**	
@@ -301,6 +323,7 @@ Method: POST
 Parameters: websafeKey (required)
 Returns: updated conference.
 Description: Update conference w/provided fields & return w/updated info.
+
 ---
 
 - **updateSession()**
