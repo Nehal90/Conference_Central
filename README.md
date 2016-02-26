@@ -60,7 +60,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ## Endpoints Included:
 
-- **addSessionToWishlist()**
+- **addSessionToWishlist**
 
 	Path: 'session/{websafeKey}'
 
@@ -74,7 +74,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **createConference()**
+- **createConference**
 
 	Path: 'conference'
 
@@ -110,7 +110,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **createSession()**						
+- **createSession**						
 
 	Path: 'session'
 	
@@ -146,7 +146,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **deleteSessionFromWishlist()**	
+- **deleteSessionFromWishlist**	
 
 	Path: 'session/{websafeKey}'
 	
@@ -162,7 +162,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **getAllSessions()**	
+- **getAllSessions**	
 
 	Path: 'session/all'
 	
@@ -176,7 +176,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **getAnnouncement()**		
+- **getAnnouncement**		
 
 	Path: 'conference/announcement/get'
 	
@@ -190,7 +190,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **getConference()**
+- **getConference**
 
 	Path: 'conference/{websafeConferenceKey}'
 	
@@ -206,7 +206,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **getConferenceSessions()**		
+- **getConferenceSessions**		
 
 	Path: 'conferece/{websafeConferenceKey}/sessions'
 	
@@ -222,7 +222,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **getConferenceSessionsBySpeaker()**	
+- **getConferenceSessionsBySpeaker**	
 
 	Path: 'conference/sessions/bySpeaker'
 	
@@ -240,7 +240,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **getConferenceSessionsByType()**		
+- **getConferenceSessionsByType**		
 
 	Path: 'conference/sessions/byType'
 	
@@ -258,7 +258,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **getConferencesCreated()**				
+- **getConferencesCreated**				
 
 	Path: 'getConferencesCreated'
 
@@ -272,7 +272,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **getConferencesToAttend()**			
+- **getConferencesToAttend**			
 
 	Path: 'conference/created_by_user'
 
@@ -286,7 +286,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **getFeaturedSpeaker()**				
+- **getFeaturedSpeaker**				
 
 	Path: 'conference/featured_speaker'
 
@@ -300,7 +300,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **getProfile()**			
+- **getProfile**			
 
 	Path: 'profile'
 
@@ -314,7 +314,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **getSession()**						
+- **getSession**						
 
 	Path: 'session/{websafeKey}'
 
@@ -330,7 +330,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **getSessionsCreated()**				
+- **getSessionsCreated**				
 
 	Path: 'getSessionsCreated'
 
@@ -344,7 +344,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **getSessionInWishlist()**		
+- **getSessionInWishlist**		
 
 	Path: 'sessions/wishlist'
 
@@ -358,7 +358,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **queryConferences()**
+- **queryConferences**
 
 	Path: 'queryConferences'
 
@@ -388,7 +388,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **querySessions()**						
+- **querySessions**						
 
 	Path: 'querySessions'
 
@@ -407,6 +407,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 	Returns: a list of conference satisfying the query condition.
 	
 	Description: Query for sessions by following fields.
+					
 					SPEAKER
 		
 					TYPE_OF_SESSION
@@ -417,7 +418,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **registerForConference()**
+- **registerForConference**
 
 	Path: 'conference/{websafeConferenceKey}'
 
@@ -433,7 +434,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **saveProfile()**			
+- **saveProfile**			
 
 	Path: 'profile'
 
@@ -447,7 +448,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **unregisterFromConference()**
+- **unregisterFromConference**
 
 	Path: 'conference/{websafeConferenceKey}'
 
@@ -463,7 +464,7 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **updateConference()**	
+- **updateConference**	
 
 	Path: 'conference/{websafeConferenceKey}'
 
@@ -479,14 +480,14 @@ In this project I learn how to develop a cloud-based API server to support a pro
 
 ---
 
-- **updateSession()**
+- **updateSession**
 
 	Path: 'session/{websafeKey}'
 
 	Method: POST
 
 	Parameters: 
-	
+
 			websafeKey (required)
 
 	Returns: updated session.
