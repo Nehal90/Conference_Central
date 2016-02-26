@@ -49,89 +49,261 @@ In this project I learn how to develop a cloud-based API server to support a pro
 [8]: https://conference-central-1222.appspot.com/_ah/api/explorer
 
 
-## Available Endpoint APIs
+## Files Included:
 
+- conference.py: Contains endpoints and conference logics.
+- app.yaml: App configuration.
+- cron.yaml: Cronjob configuration.
+- main.py: Handler for taskqueue handler.
+- models.py: Entity and message definitions including helper methods.
+- utils.py: Helper function for retrieving ndb.Models by urlsafe Key string.
 
-- **addSessionToWishlist()**|
-Add session to user wishlist (by websafeKey)
+## Endpoints Included:
 
-- **createConference()**	|
-Create new conference (by name) 
+- **addSessionToWishlist()**
+
+Path: 'session/{websafeKey}'
+Method: POST
+Parameters: websafeKey (required)
+Returns: confirmation of session added to user wishlist.
+Description: Adds the sessions users wishlist.
+
+- **createConference()**
+
+Path: 'conference'
+Method: POST
+Parameters: name (required)
+			topics (required)
+			description (optional)
+			organizerUserId (optional)
+			organizerDisplayName (optional)
+			city (optional)
+			startDate (optional)
+			endDate (optional)
+			month (optional)
+			maxAttendess (optional)
+			seatsAvailable (optional)
+Returns: a confirmation that the new session is created.
+Description: Create a new session.
 
 - **createSession()**						
-Create new session (by name and websafeConferenceKey).
 
-- **deleteSessionFromWishlist()**			
-	Remove session from user wishlist (by websafeKey).
+Path: 'session'
+Method: POST
+Parameters: name (required)
+			websafeConferenceKey (required)
+			duration (optional)
+			organizerUserId (optional)
+			organizerDisplayName (optional)
+			highlights (optional)
+			startDate (optional)
+			startTime (optional)
+			hour (optional)
+			speaker (optional)
+			typeOfSession (optional)
+Returns: a confirmation that the new conference is created.
+Description: Create a new conference.
 
-- **getAllSessions()**					
-	Get all the sessions
+- **deleteSessionFromWishlist()**	
 
-- **getAnnouncement()**					
-	Return Announcement from memcache.
+Path: 'session/{websafeKey}'
+Method: POST
+Parameters: websafeKey (required)
+Returns: confirmation of session deleted from user wishlist.
+Description: Remove session from user wishlist.
 
-- **getConference()**						
-	Return requested conference (by websafeConferenceKey).
+- **getAllSessions()**	
 
-- **getConferenceSessions()**				
-	Return conferences created by user (by websafeConferenceKey).
+Path: 'session/all'
+Method: GET
+Parameters: NONE
+Returns: a list of all sessions from all conference.
+Description: Get all the sessions.
+
+- **getAnnouncement()**		
+
+Path: 'conference/announcement/get'
+Method: GET
+Parameters: NONE
+Returns: annoucement.
+Description: Return Announcement from memcache.
+
+- **getConference()**
+
+Path: 'conference/{websafeConferenceKey}'
+Method: GET
+Parameters: websafeConferenceKey (required)
+Returns: conference.
+Description: Return requested conference.
+
+
+- **getConferenceSessions()**		
+
+Path: 'conferece/{websafeConferenceKey}/sessions'
+Method: GET
+Parameters: websafeConferenceKey (required)
+Returns: a list of sessions within a conference.
+Description: Return all sessions within a conference.
+
 
 - **getConferenceSessionsBySpeaker()**	
-	Gets all the sessions of a specified speaker (by websafeConferenceKey and speaker).
+
+Path: 'conference/sessions/bySpeaker'
+Method: GET
+Parameters: websafeConferenceKey (required)
+			speaker (required)
+Returns: a list of sessions within a conference given by specified speaker.
+Description: Gets all the sessions of a specified speaker.
+
 
 - **getConferenceSessionsByType()**		
-	Get sessions of a conference by type (by websafeConferenceKey and typeOfSession).
+
+Path: 'conference/sessions/byType'
+Method: GET
+Parameters: websafeConferenceKey (required)
+			typeOfSession (required)
+Returns: a list of certain type of sessions within a conference.
+Description: Get sessions of a conference by type.
+
 
 - **getConferencesCreated()**				
-	Return conferences created by user.
+
+Path: 'getConferencesCreated'
+Method: GET
+Parameters: None
+Returns: a list of conferences.
+Description: Return conferences created by logged in user.
+
 
 - **getConferencesToAttend()**			
-	Get list of conferences that user has registered 
-for.
+
+Path: 'conference/created_by_user'
+Method: GET
+Parameters: None
+Returns: a list of conferences logged in user registered for.
+Description: Get list of conferences that user has registered for to attend.
+
 
 - **getFeaturedSpeaker()**				
-	Get the featured speaker from memcache
 
-- **getProfile()**						
-	Return user profile.
+Path: 'conference/featured_speaker'
+Method: GET
+Parameters: None
+Returns: featured speaker announcement.
+Description: Get the featured speaker from memcache
+
+
+- **getProfile()**			
+
+Path: 'profile'
+Method: GET
+Parameters: None
+Returns: user profile
+Description: Get user profile.
+
 
 - **getSession()**						
-	Return requested session (by websafeKey).
+
+Path: 'session/{websafeKey}'
+Method: GET
+Parameters: websafeKey (required)
+Returns: session.
+Description: Get requested session.
+
 
 - **getSessionsCreated()**				
-	Get list of sessions created by current user.
 
-- **getSessionInWishlist()**				
-	Get wishlist of sessions that user wants to join.
+Path: 'getSessionsCreated'
+Method: GET
+Parameters: None
+Returns: a list of sessions.
+Description: Get list of sessions created by current user.
 
-- **queryConferences()**					
-	Query for conferences. Following query fields are available:
-	CITY
-	TOPIC
-	MONTH
-	MAX_ATTENDEES
+
+- **getSessionInWishlist()**		
+
+Path: 'sessions/wishlist'
+Method: GET
+Parameters: None
+Returns: a list of sessions.
+Description: Get wishlist of sessions that user wants to join.
+
+- **queryConferences()**
+
+Path: 'queryConferences'
+Method: POST
+Parameters: filters (required)
+			field (required)
+			operator (required)
+			value (required)
+Returns: a list of conference satisfying the query condition.
+Description: Query for conferences by following fields.
+				CITY
+				TOPIC
+				MONTH
+				MAX_ATTENDEES
+
 
 - **querySessions()**						
-	Query for sessions. Following query fields are available:
-	SPEAKER
-	TYPE_OF_SESSION
-	HOUR
-	CONFERENCE_NAME
 
-- **registerForConference()**				
-	Register user for selected conference.
+Path: 'querySessions'
+Method: POST
+Parameters: filters (required)
+			field (required)
+			operator (required)
+			value (required)
+Returns: a list of conference satisfying the query condition.
+Description: Query for sessions by following fields.
+				SPEAKER
+				TYPE_OF_SESSION
+				HOUR
+				CONFERENCE_NAME
 
-- **saveProfile()**						
-	Update & return user profile.
 
-- **unregisterFromConference()**			
-	Unregister user for selected conference.
+- **registerForConference()**
 
-- **updateConference()**					
-	Update conference w/provided fields & return w/updated info.
+Path: 'conference/{websafeConferenceKey}'
+Method: POST
+Parameters: websafeConferenceKey (required)
+Returns: confirmation if user is registered for the conference.
+Description: Register user for selected conference.
 
-- **updateSession()**						
-	Update session w/provided fields & return w/updated info.
+
+- **saveProfile()**			
+
+Path: 'profile'
+Method: POST
+Parameters: None
+Returns: saved user profile
+Description: Update & return user profile.
+
+
+- **unregisterFromConference()**
+
+Path: 'conference/{websafeConferenceKey}'
+Method: POST
+Parameters: websafeConferenceKey (required)
+Returns: confirmation if user is unregistered for the conference.
+Description: Unregister user for selected conference.
+
+
+- **updateConference()**	
+
+Path: 'conference/{websafeConferenceKey}'
+Method: POST
+Parameters: websafeKey (required)
+Returns: updated conference.
+Description: Update conference w/provided fields & return w/updated info.
+
+
+- **updateSession()**
+
+Path: 'session/{websafeKey}'
+Method: POST
+Parameters: websafeKey (required)
+Returns: updated session.
+Description: Update session w/provided fields & return w/updated info.
+
 
 ## Design Choice
 

@@ -661,18 +661,18 @@ class ConferenceApi(remote.Service):
         return request
 
 
-    @endpoints.method(SessionForm, SessionForm, path='conference/session',
+    @endpoints.method(SessionForm, SessionForm, path='session',
             http_method='POST', name='createSession')
     def createSession(self, request):
         """Create new session."""
         return self._createSessionObject(request)
 
     @endpoints.method(SESS_GET_REQUEST, SessionForms,
-            path='getConferencesSessions/{websafeConferenceKey}',
+            path='conferece/{websafeConferenceKey}/sessions',
             http_method='GET', name='getConferenceSessions')
 
     def getConferenceSessions(self, request):
-        """Return conferences created by user."""
+        """Return all sessions within a conference."""
         # make sure user is authed
         user = endpoints.get_current_user()
         if not user:
@@ -690,7 +690,7 @@ class ConferenceApi(remote.Service):
         )
 
     @endpoints.method(SESS_TYPE_GET_REQUEST, SessionForms,
-            path='getConferenceSessionsByType/{websafeConferenceKey}',
+            path='conference/sessions/byType',
             http_method='GET', name='getConferenceSessionsByType')
 
     def getConferenceSessionsByType(self, request):
@@ -730,7 +730,7 @@ class ConferenceApi(remote.Service):
         )
 
     @endpoints.method(message_types.VoidMessage, SessionForms,
-            path='sessions/all',
+            path='session/all',
             http_method='GET', name='getAllSessions')
     def getAllSessions(self, request):
         """ Get all the sessions"""
