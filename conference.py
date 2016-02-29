@@ -993,7 +993,7 @@ class ConferenceApi(remote.Service):
         if not featured_speaker:
             featured_speaker = "None"
         # save featured speaker value in memcache
-        memcache.add(key=MEMCACHE_FEATURED_KEY, value=featured_speaker)
+        memcache.add(key=MEMCACHE_FEATURED_SPEAKER_KEY, value=featured_speaker)
         return featured_speaker
 
     @endpoints.method(message_types.VoidMessage, StringMessage,
