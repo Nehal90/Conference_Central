@@ -653,7 +653,8 @@ class ConferenceApi(remote.Service):
 
         # task to announce featured speaker
         taskqueue.add(
-                params={'websafeConferenceKey': request.websafeConferenceKey},
+                params={'websafeConferenceKey': request.websafeConferenceKey,
+                        'speaker': data['Session.speaker']},
                 url='/tasks/set_featured_speaker'
                 )
 
@@ -713,7 +714,7 @@ class ConferenceApi(remote.Service):
         sessions = sessions.filter(Session.typeOfSession==typeOfSession)
         if not sessions.get():
             raise endpoints.NotFoundException(
-                'No sessions found with conference key: %s and type of session: %s' % (websafeConferenceKey, typeOfSession))
+                'No sessions found with conference key: %s and type of session: %s' % (request.websafeConferenceKey, typeOfSession))
         return SessionForms(
             items=[self._copySessionToForm(sess, getattr(conf, 'name')) for sess in sessions]
         )
