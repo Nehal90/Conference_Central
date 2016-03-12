@@ -653,8 +653,7 @@ class ConferenceApi(remote.Service):
 
         # task to announce featured speaker
         taskqueue.add(
-                params={'websafeConferenceKey': request.websafeConferenceKey,
-                        'speaker': data['Session.speaker']},
+                params={'websafeConferenceKey': request.websafeConferenceKey},
                 url='/tasks/set_featured_speaker'
                 )
 
